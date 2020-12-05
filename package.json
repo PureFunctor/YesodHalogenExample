@@ -1,0 +1,26 @@
+{
+  "name": "yesodhalogenexample",
+  "version": "1.0.0",
+  "description": "Example app with Halogen on the frontend and Yesod for the backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PureFunctor/YesodHalogenExample.git"
+  },
+  "keywords": [
+    "Web",
+    "PureScript",
+    "Haskell",
+    "Halogen",
+    "Yesod"
+  ],
+  "author": "PureFunctor",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/PureFunctor/YesodHalogenExample/issues"
+  },
+  "homepage": "https://github.com/PureFunctor/YesodHalogenExample#readme"
+}
