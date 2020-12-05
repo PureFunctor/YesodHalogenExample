@@ -26,5 +26,8 @@
   "homepage": "https://github.com/PureFunctor/YesodHalogenExample#readme",
   "devDependencies": {
     "parcel": "^1.12.4"
+  },
+  "dependencies": {
+    "bulma": "^0.9.1"
   }
 }
