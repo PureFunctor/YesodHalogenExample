@@ -4,6 +4,7 @@
   "description": "Example app with Halogen on the frontend and Yesod for the backend",
   "main": "index.js",
   "scripts": {
+    "build": "spago build && parcel build ./halogen_frontend/dev/index.html --out-dir ./static --public-url ./static --no-source-maps",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
