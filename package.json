@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/PureFunctor/YesodHalogenExample/issues"
   },
-  "homepage": "https://github.com/PureFunctor/YesodHalogenExample#readme"
+  "homepage": "https://github.com/PureFunctor/YesodHalogenExample#readme",
+  "devDependencies": {
+    "parcel": "^1.12.4"
+  }
 }
