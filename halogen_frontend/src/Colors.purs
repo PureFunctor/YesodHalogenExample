@@ -33,6 +33,11 @@ mkTitle = HH.p [ css "title has-text-dark" ] <<< singleton <<< HH.text
 type RGBValues = { r :: Int , g :: Int , b :: Int }
 type FormsState = { current :: RGBValues }
 data FormsAction = FormSubmission
+type FormsOutput = RGBValues
+
+
+formsComponent :: forall query input m. H.Component HH.HTML query input FormsOutput m
+formsComponent = H.mkComponent { initialState: formsInitialState , render: formsRender , eval: H.mkEval $ H.defaultEval { handleAction = formsHandleAction } }
 
 
 formsInitialState :: forall input. input -> FormsState
@@ -80,7 +85,7 @@ formsRender _ =
   ]
 
 
-formsHandleAction :: forall m. FormsAction -> H.HalogenM FormsState FormsAction () RGBValues m Unit
+formsHandleAction :: forall m. FormsAction -> H.HalogenM FormsState FormsAction () FormsOutput m Unit
 formsHandleAction = case _ of
   FormSubmission -> do
     { current } <- H.get
