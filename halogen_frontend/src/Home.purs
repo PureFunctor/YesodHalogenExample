@@ -8,14 +8,14 @@ import Halogen.HTML as HH
 import Halogen.HTML.Properties as HP
 import Utils (css)
 
-type State = Unit
+type State = { current :: { r :: Int, g :: Int, b :: Int }, committed :: { r :: Int, g :: Int, b :: Int } }
 type Action = Unit
 
 component :: forall query input output m. H.Component HH.HTML query input output m
 component = H.mkComponent {initialState, render, eval: H.mkEval $ H.defaultEval}
 
 initialState :: forall input. input -> State
-initialState _ = unit
+initialState _ = { current : { r: 0, g: 0, b: 0 }, committed : { r: 0, g: 0, b: 0 } }
 
 mkParentTile :: forall w i. Array (HH.HTML w i) -> HH.HTML w i
 mkParentTile = HH.div [ css "tile is-parent" ]
