@@ -3,10 +3,9 @@ module Home where
 import Prelude
 
 import Data.Array (singleton)
-
 import Halogen as H
 import Halogen.HTML as HH
-
+import Halogen.HTML.Properties as HP
 import Utils (css)
 
 type State = Unit
@@ -37,13 +36,31 @@ render _ =
     [ HH.div [ css "tile is-ancestor" ]
       [ mkParentTile
         [ mkChildTile
-          [ mkTitle $ HH.text "Input Here"
-          , mkSubtitle $ HH.text "All told, a monad in X is just a monoid in the category of endofunctors of X, with product × replaced by composition of endofunctors and unit set by the identity endofunctor."
+          [ mkTitle $ HH.text "Colors"
+          , HH.div [ css "field" ]
+            [ HH.label [ css "label" ] [ HH.text "RED" ]
+            , HH.div [ css "control" ]
+              [ HH.input [ css "input", HP.type_ HP.InputNumber, HP.placeholder "0~255", HP.min 0.0, HP.max 255.0 ] ]
+            ]
+          , HH.div [ css "field" ]
+            [ HH.label [ css "label" ] [ HH.text "BLUE" ]
+            , HH.div [ css "control" ]
+              [ HH.input [ css "input", HP.type_ HP.InputNumber, HP.placeholder "0~255", HP.min 0.0, HP.max 255.0 ] ]
+            ]
+          , HH.div [ css "field" ]
+            [ HH.label [ css "label" ] [ HH.text "GREEN" ]
+            , HH.div [ css "control" ]
+              [ HH.input [ css "input", HP.type_ HP.InputNumber, HP.placeholder "0~255", HP.min 0.0, HP.max 255.0 ] ]
+            ]
+          , HH.div [ css "field is-grouped is-grouped-right" ]
+            [ HH.p [ css "control" ]
+              [ HH.a [ css "button is-primary" ] [ HH.text "Submit" ] ]
+            ]
           ]
         ]
       , mkParentTile
         [ mkChildTile
-          [ mkTitle $ HH.text "Output Here"
+          [ mkTitle $ HH.text "Output"
           , mkSubtitle $ HH.text "All told, a monad in X is just a monoid in the category of endofunctors of X, with product × replaced by composition of endofunctors and unit set by the identity endofunctor."
           ]
         ]
