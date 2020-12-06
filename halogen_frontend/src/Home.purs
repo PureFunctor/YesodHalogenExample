@@ -56,7 +56,7 @@ colorFieldSubmit =
  [ HH.p [ css "control" ] [ HH.a [ css "button is-primary", HE.onClick \_ -> Just CommitColor ] [ HH.text "Submit" ] ] ]
 
 render :: forall m. State -> H.ComponentHTML Action () m
-render _ =
+render state =
   HH.div [ css "hero is-dark is-fullheight" ]
   [ HH.div [ css "hero-body" ]
     [ HH.div [ css "tile is-ancestor" ]
@@ -72,7 +72,23 @@ render _ =
       , mkParentTile
         [ mkChildTile
           [ mkTitle $ HH.text "Output"
-          , mkSubtitle $ HH.text "All told, a monad in X is just a monoid in the category of endofunctors of X, with product × replaced by composition of endofunctors and unit set by the identity endofunctor."
+          , HH.text $ "Current: "
+          , HH.br_
+          , HH.text $ "Red: " <> show state.current.r
+          , HH.br_
+          , HH.text $ "Blue: " <> show state.current.b
+          , HH.br_
+          , HH.text $ "Green: " <> show state.current.g
+          , HH.br_
+          , HH.br_
+          , HH.text $ "Committed: "
+          , HH.br_
+          , HH.text $ "Red: " <> show state.committed.r
+          , HH.br_
+          , HH.text $ "Blue: " <> show state.committed.b
+          , HH.br_
+          , HH.text $ "Green: " <> show state.committed.g
+          , HH.br_
           ]
         ]
       ]
