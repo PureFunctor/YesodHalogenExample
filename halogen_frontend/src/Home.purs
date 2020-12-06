@@ -15,7 +15,7 @@ type State = { current :: { r :: Int, g :: Int, b :: Int }, committed :: { r :: 
 data Action = ChangeColor String Int | CommitColor
 
 component :: forall query input output m. H.Component HH.HTML query input output m
-component = H.mkComponent {initialState, render, eval: H.mkEval $ H.defaultEval}
+component = H.mkComponent {initialState, render, eval: H.mkEval $ H.defaultEval {handleAction = handleAction} }
 
 initialState :: forall input. input -> State
 initialState _ = { current : { r: 0, g: 0, b: 0 }, committed : { r: 0, g: 0, b: 0 } }
@@ -78,3 +78,19 @@ render _ =
       ]
     ]
   ]
+
+handleAction :: forall output m. Action -> H.HalogenM State Action () output m Unit
+handleAction = case _ of
+  ChangeColor n s -> do
+    state <- H.get
+    case n of
+      "RED" -> do
+        H.put ({current: {r: s, g: state.current.g, b: state.current.b}, committed: state.committed})
+      "BLUE" -> do
+        H.put ({current: {r: state.current.r, g: state.current.g, b: s}, committed: state.committed})
+      "GREEN" -> do
+        H.put ({current: {r: state.current.r, g: s, b: state.current.b}, committed: state.committed})
+      _ -> pure unit
+  CommitColor -> do
+    state <- H.get
+    H.put ({current: state.current, committed: state.current})
