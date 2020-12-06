@@ -29,6 +29,19 @@ mkTitle = HH.p [ css "title has-text-dark" ] <<< singleton
 mkSubtitle :: forall w i. HH.HTML w i-> HH.HTML w i
 mkSubtitle = HH.p [ css "subtitle has-text-dark" ] <<< singleton
 
+colorField :: forall w i. String -> HH.HTML w i
+colorField color =
+  HH.div [ css "field" ]
+  [ HH.label [ css "label" ] [ HH.text color ]
+  , HH.div [ css "control" ]
+    [ HH.input [ css "input", HP.type_ HP.InputNumber, HP.placeholder "0~255", HP.min 0.0, HP.max 255.0 ] ]
+  ]
+
+colorFieldSubmit :: forall w i. HH.HTML w i
+colorFieldSubmit =
+ HH.div [ css "field is-grouped is-grouped-right" ]
+ [ HH.p [ css "control" ] [ HH.a [ css "button is-primary" ] [ HH.text "Submit" ] ] ]
+
 render :: forall m. State -> H.ComponentHTML Action () m
 render _ =
   HH.div [ css "hero is-dark is-fullheight" ]
@@ -37,25 +50,10 @@ render _ =
       [ mkParentTile
         [ mkChildTile
           [ mkTitle $ HH.text "Colors"
-          , HH.div [ css "field" ]
-            [ HH.label [ css "label" ] [ HH.text "RED" ]
-            , HH.div [ css "control" ]
-              [ HH.input [ css "input", HP.type_ HP.InputNumber, HP.placeholder "0~255", HP.min 0.0, HP.max 255.0 ] ]
-            ]
-          , HH.div [ css "field" ]
-            [ HH.label [ css "label" ] [ HH.text "BLUE" ]
-            , HH.div [ css "control" ]
-              [ HH.input [ css "input", HP.type_ HP.InputNumber, HP.placeholder "0~255", HP.min 0.0, HP.max 255.0 ] ]
-            ]
-          , HH.div [ css "field" ]
-            [ HH.label [ css "label" ] [ HH.text "GREEN" ]
-            , HH.div [ css "control" ]
-              [ HH.input [ css "input", HP.type_ HP.InputNumber, HP.placeholder "0~255", HP.min 0.0, HP.max 255.0 ] ]
-            ]
-          , HH.div [ css "field is-grouped is-grouped-right" ]
-            [ HH.p [ css "control" ]
-              [ HH.a [ css "button is-primary" ] [ HH.text "Submit" ] ]
-            ]
+          , colorField "RED"
+          , colorField "BLUE"
+          , colorField "GREEN"
+          , colorFieldSubmit
           ]
         ]
       , mkParentTile
