@@ -50,10 +50,10 @@ colorField color =
     ]
   ]
 
-colorFieldSubmit :: forall w i. HH.HTML w i
+colorFieldSubmit :: forall w. HH.HTML w Action
 colorFieldSubmit =
  HH.div [ css "field is-grouped is-grouped-right" ]
- [ HH.p [ css "control" ] [ HH.a [ css "button is-primary" ] [ HH.text "Submit" ] ] ]
+ [ HH.p [ css "control" ] [ HH.a [ css "button is-primary", HE.onClick \_ -> Just CommitColor ] [ HH.text "Submit" ] ] ]
 
 render :: forall m. State -> H.ComponentHTML Action () m
 render _ =
