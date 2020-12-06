@@ -10,7 +10,9 @@ import Halogen.HTML.Events as HE
 import Halogen.HTML.Properties as HP
 import Utils (css)
 
+
 data RGB = Red | Green | Blue
+
 
 instance showRGB :: Show RGB where
   show Red = "Red"
@@ -37,7 +39,14 @@ type FormsOutput = RGBValues
 
 
 formsComponent :: forall query input m. H.Component HH.HTML query input FormsOutput m
-formsComponent = H.mkComponent { initialState: formsInitialState , render: formsRender , eval: H.mkEval $ H.defaultEval { handleAction = formsHandleAction } }
+formsComponent =
+  H.mkComponent
+  { initialState : formsInitialState
+  , render : formsRender
+  , eval : H.mkEval $ H.defaultEval
+    { handleAction = formsHandleAction
+    }
+  }
 
 
 formsInitialState :: forall input. input -> FormsState
