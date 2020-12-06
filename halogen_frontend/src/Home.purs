@@ -9,7 +9,7 @@ import Halogen.HTML.Properties as HP
 import Utils (css)
 
 type State = { current :: { r :: Int, g :: Int, b :: Int }, committed :: { r :: Int, g :: Int, b :: Int } }
-type Action = Unit
+data Action = ChangeColor String Int | CommitColor
 
 component :: forall query input output m. H.Component HH.HTML query input output m
 component = H.mkComponent {initialState, render, eval: H.mkEval $ H.defaultEval}
