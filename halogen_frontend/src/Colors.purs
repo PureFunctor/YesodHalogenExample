@@ -4,6 +4,7 @@ import Prelude
 
 import Data.Array (singleton)
 import Data.Maybe (Maybe(..))
+import Data.Symbol (SProxy(..))
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.Events as HE
@@ -18,6 +19,10 @@ instance showRGB :: Show RGB where
   show Red = "Red"
   show Green = "Green"
   show Blue = "Blue"
+
+
+mkAncestorTile :: forall w i. Array (HH.HTML w i) -> HH.HTML w i
+mkAncestorTile = HH.div [ css "tile is-ancestor" ]
 
 
 mkParentTile :: forall w i. Array (HH.HTML w i) -> HH.HTML w i
@@ -100,3 +105,39 @@ formsHandleAction = case _ of
   FormSubmission -> do
     { current } <- H.get
     H.raise current
+
+
+type ParentState = Unit
+data ParentAction = HandleSubmission FormsOutput
+
+type ParentSlots = ( forms :: forall q. H.Slot q FormsOutput Unit )
+
+_forms = SProxy :: SProxy "forms"
+
+
+parentComponent :: forall query input output m. H.Component HH.HTML query input output m
+parentComponent =
+  H.mkComponent
+  { initialState : (\_ -> unit)
+  , render : parentRender
+  , eval: H.mkEval $ H.defaultEval
+    { handleAction = parentHandleAction
+    }
+  }
+
+
+parentRender :: forall m. ParentState -> H.ComponentHTML ParentAction ParentSlots m
+parentRender _ =
+  HH.div [ css "hero is-dark is-fullheight" ]
+  [ HH.div [ css "hero-body" ]
+    [ mkAncestorTile
+      [ HH.slot _forms unit formsComponent { current: { r : 0 , g : 0 , b : 0 } } (Just <<< HandleSubmission)
+      ]
+    ]
+  ]
+
+
+parentHandleAction :: forall output m. ParentAction -> H.HalogenM ParentState ParentAction ParentSlots output m Unit
+parentHandleAction = case _ of
+  HandleSubmission current ->
+    pure unit
