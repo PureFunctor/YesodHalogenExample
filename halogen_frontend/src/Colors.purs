@@ -6,6 +6,8 @@ import Data.Array (singleton)
 import Data.Int (fromString)
 import Data.Maybe (Maybe(..), fromMaybe)
 import Data.Symbol (SProxy(..))
+import Effect.Class (class MonadEffect)
+import Effect.Console (log)
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.Events as HE
@@ -123,7 +125,7 @@ type ParentSlots = ( forms :: forall q. H.Slot q FormsOutput Unit )
 _forms = SProxy :: SProxy "forms"
 
 
-parentComponent :: forall query input output m. H.Component HH.HTML query input output m
+parentComponent :: forall query input output m. (MonadEffect m) => H.Component HH.HTML query input output m
 parentComponent =
   H.mkComponent
   { initialState : (\_ -> unit)
@@ -134,7 +136,7 @@ parentComponent =
   }
 
 
-parentRender :: forall m. ParentState -> H.ComponentHTML ParentAction ParentSlots m
+parentRender :: forall m. (MonadEffect m) => ParentState -> H.ComponentHTML ParentAction ParentSlots m
 parentRender _ =
   HH.div [ css "hero is-dark is-fullheight" ]
   [ HH.div [ css "hero-body" ]
@@ -145,7 +147,7 @@ parentRender _ =
   ]
 
 
-parentHandleAction :: forall output m. ParentAction -> H.HalogenM ParentState ParentAction ParentSlots output m Unit
+parentHandleAction :: forall output m. (MonadEffect m) => ParentAction -> H.HalogenM ParentState ParentAction ParentSlots output m Unit
 parentHandleAction = case _ of
   HandleSubmission current ->
-    pure unit
+    H.liftEffect $ log $ show current
