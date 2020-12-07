@@ -3,7 +3,8 @@ module Colors where
 import Prelude
 
 import Data.Array (singleton)
-import Data.Maybe (Maybe(..))
+import Data.Int (fromString)
+import Data.Maybe (Maybe(..), fromMaybe)
 import Data.Symbol (SProxy(..))
 import Halogen as H
 import Halogen.HTML as HH
@@ -39,7 +40,7 @@ mkTitle = HH.p [ css "title has-text-dark" ] <<< singleton <<< HH.text
 
 type RGBValues = { r :: Int , g :: Int , b :: Int }
 type FormsState = { current :: RGBValues }
-data FormsAction = FormSubmission
+data FormsAction = FormUpdateColor RGB Int | FormSubmission
 type FormsOutput = RGBValues
 
 
@@ -71,6 +72,7 @@ formsField color =
       , HP.placeholder "0~255"
       , HP.min 0.0
       , HP.max 255.0
+      , HE.onValueChange (Just <<< FormUpdateColor color <<< fromMaybe 0 <<< fromString)
       ]
     ]
   ]
@@ -102,6 +104,12 @@ formsRender _ =
 
 formsHandleAction :: forall m. FormsAction -> H.HalogenM FormsState FormsAction () FormsOutput m Unit
 formsHandleAction = case _ of
+  FormUpdateColor color value -> do
+    { current } <- H.get
+    case color of
+      Red -> H.put { current : current { r = value } }
+      Green -> H.put { current : current { g = value } }
+      Blue -> H.put { current : current { b = value } }
   FormSubmission -> do
     { current } <- H.get
     H.raise current
