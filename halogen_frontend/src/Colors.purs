@@ -90,6 +90,7 @@ formsRender _ =
     , formsField Red
     , formsField Green
     , formsField Blue
+    , formsSubmit
     ]
   ]
 
