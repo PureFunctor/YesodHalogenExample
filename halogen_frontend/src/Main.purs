@@ -6,9 +6,9 @@ import Effect (Effect)
 import Halogen.Aff as HA
 import Halogen.VDom.Driver (runUI)
 
-import Colors as Colors
+import Home as Home
 
 main :: Effect Unit
 main = HA.runHalogenAff do
   body <- HA.awaitBody
-  runUI Colors.parentComponent unit body
+  runUI Home.parentComponent unit body
