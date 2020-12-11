@@ -1,4 +1,4 @@
-module Utils where
+module Shared.Utils where
 
 import Prelude
 

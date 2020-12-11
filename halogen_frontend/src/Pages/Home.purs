@@ -4,7 +4,7 @@ import Prelude
 
 import Halogen as H
 import Halogen.HTML as HH
-import Utils (css)
+import Shared.Utils (css)
 
 
 type State = Unit
