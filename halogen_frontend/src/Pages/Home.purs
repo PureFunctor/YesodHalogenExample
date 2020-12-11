@@ -1,4 +1,4 @@
-module About where
+module Pages.Home where
 
 import Prelude
 
@@ -25,6 +25,6 @@ component =
   render _ =
     HH.div [ css "hero is-dark is-fullheight" ]
     [ HH.div [ css "hero-body" ]
-      [ HH.h1_ [ HH.text "About Page" ]
+      [ HH.h1_ [ HH.text "Hello, World" ]
       ]
     ]
