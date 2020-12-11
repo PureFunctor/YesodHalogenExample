@@ -11,4 +11,4 @@ import Home as Home
 main :: Effect Unit
 main = HA.runHalogenAff do
   body <- HA.awaitBody
-  runUI Home.parentComponent unit body
+  runUI Home.component unit body
