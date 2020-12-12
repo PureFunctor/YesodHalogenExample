@@ -4,6 +4,7 @@ import Prelude
 
 import Halogen as H
 import Halogen.HTML as HH
+import Shared.HTML (navbar)
 import Shared.Utils (css)
 
 
@@ -23,8 +24,12 @@ component =
 
   render :: forall action. State -> H.ComponentHTML action () m
   render _ =
-    HH.div [ css "hero is-dark is-fullheight" ]
-    [ HH.div [ css "hero-body" ]
-      [ HH.h1_ [ HH.text "Hello, World" ]
+    HH.div_
+    [ navbar
+    , HH.section [ css "hero is-primary has-text-centered" ]
+      [ HH.div [ css "hero-body" ]
+        [ HH.h1 [ css "is-size-1" ]
+          [ HH.text "Home" ]
+        ]
       ]
     ]
