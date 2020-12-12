@@ -6,15 +6,14 @@ import Data.Maybe (Maybe(..), fromMaybe)
 import Data.Symbol (SProxy(..))
 import Effect.Aff.Class (class MonadAff)
 import Effect.Class (liftEffect)
-import Effect.Console (log)
 import Halogen as H
 import Halogen.HTML as HH
 import Pages.About as AboutPage
 import Pages.Home as HomePage
-import Prelude (class Eq, Unit, Void, absurd, bind, pure, unit, ($), (<$>), (<<<), discard)
-import Routing.Duplex as RD
+import Prelude (class Eq, Unit, Void, absurd, bind, discard, pure, unit, ($), (<$>), (<<<))
+import Routing.Duplex (RouteDuplex', parse, print, root) as RD
 import Routing.Duplex.Generic (noArgs)
-import Routing.Duplex.Generic as RD
+import Routing.Duplex.Generic (sum) as RD
 import Routing.Duplex.Generic.Syntax ((/))
 import Routing.Hash (getHash, setHash)
 
